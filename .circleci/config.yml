@@ -16,7 +16,7 @@ jobs:
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
          name: Intstall Dependencies
-         command: gradlew build --refresh-dependencies
+         command: gradle build --refresh-dependencies
       - save_cache:
           paths:
             - ~/.gradle/wrapper
