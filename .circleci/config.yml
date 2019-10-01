@@ -9,7 +9,14 @@ jobs:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - run: echo "First Build"
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Login to DockerHub
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+         name: Intstall Dependencies
+         command: gradlew build --refresh-dependencies
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -18,15 +25,15 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - run : gradle clean
+      - run : gradle jib --image=naween271/circleci-starter:$CIRCLE_BUILD_NUM
       - store_test_results:
-          # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: build/test-results/test
-      - store_artifacts: # Upload test results for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+      - store_artifacts:
           path: build/test-results/test
           when: always
       - store_artifacts:
           path: build/libs
-
 
 workflows:
   version: 2
