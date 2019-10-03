@@ -70,22 +70,22 @@ workflows:
       - build:
           filters:
             branches:
-              only: CircleCI-Integration
+              only: master
       - deploy:
           requires:
             - build
           filters:
             branches:
-              only: CircleCI-Integration
+              only: master
   build-deploy-dev:
     jobs:
       - build:
           filters:
             branches:
-              only: CircleCI-Integration
+              only: master
       - deploy:
           requires:
             - build
           filters:
             branches:
-              only: CircleCI-Integration
+              only: master
