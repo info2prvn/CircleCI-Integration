@@ -77,15 +77,15 @@ workflows:
           filters:
             branches:
               only: CircleCI-Integration
-  build-deploy-dev:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: CircleCI-Integration
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: CircleCI-Integration
+#  build-deploy-dev:
+#    jobs:
+#      - build:
+#          filters:
+#            branches:
+#              only: CircleCI-Integration
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: CircleCI-Integration
